@@ -5,6 +5,9 @@ import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
+import android.widget.Scroller;
+import android.widget.TextClock;
 import android.widget.TextView;
 
 public class Main2Activity extends AppCompatActivity {
@@ -36,12 +39,20 @@ public class Main2Activity extends AppCompatActivity {
     }
 
     public void buildGUI2(){
-        RelativeLayout thisLayout = new RelativeLayout(this);
-
-        setContentView(thisLayout);
+        RelativeLayout trueLayout = new RelativeLayout(this);
+        ScrollView scroll = new ScrollView(this);
+        trueLayout.addView(scroll);
+        TextView timeHeading = new TextView(this);
+        timeHeading.setText("Time until your next flight:");
+        timeHeading.setTextSize(20);
+        trueLayout.addView(timeHeading);
+        setContentView(trueLayout);
     }
 
     public boolean validConfirmation(String conf){
+        if(conf.contains("a")){ //This condition is a placeholder.
+            return true;
+        }
         return false;
     }
 }

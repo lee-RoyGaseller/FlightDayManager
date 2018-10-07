@@ -3,6 +3,8 @@ package com.example.lee_roy.flightdaymanager;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Button;
@@ -17,12 +19,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         buildGUI();
+
     }
 
     public static String confirmation;
+    public static EditText confirm;
+    public static Intent intent;
 
     public void buildGUI(){
-        RelativeLayout thisLayout = new RelativeLayout(this);
+        final RelativeLayout thisLayout = new RelativeLayout(this);
 
         TextView welcome = new TextView(this);
         welcome.setText("Welcome to the American Airlines Flight Day Manager.");
@@ -35,26 +40,41 @@ public class MainActivity extends AppCompatActivity {
         command.setX(10);
         command.setTextSize(20);
         thisLayout.addView(command);
-        EditText confirm = new EditText(this);
+        confirm = new EditText(this);
         confirm.setHint("Confirmation #");
         confirm.setY(900);
         confirm.setX(400);
         confirm.setTextSize(25);
-        confirmation = String.valueOf(confirm.getText());
         thisLayout.addView(confirm);
-        Button next = new Button(this);
+        final Button next = new Button(this);
         next.setY(1200);
         next.setX(500);
         next.setText("Login");
         next.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent();
+                intent = new Intent();
                 intent.setClass(MainActivity.this, Main2Activity.class);
                 intent.putExtra("confirmation", confirmation);
                 startActivity(intent);
             }
         });
         thisLayout.addView(next);
+        confirm.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                confirmation = String.valueOf(confirm.getText());
+            }
+        });
         setContentView(thisLayout);
     }
 
